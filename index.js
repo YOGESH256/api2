@@ -1,7 +1,7 @@
 import  express from 'express';
-
+import app from './app.js'
 import dotenv from 'dotenv'
-import ConnectDB from './config/db.js'
+import conn from './config/db.js'
 import  tripRoutes from './routes/tripRoutes.js'
 import  userRoutes from './routes/userRoutes.js'
 
@@ -16,11 +16,12 @@ const client = redis.createClient();
 await client.connect().then(console.log("connect"))
 })();
 
+
 dotenv.config()
 
-ConnectDB()
+conn.connect()
 
-const app = express()
+
 
 app.use(express.json())
 

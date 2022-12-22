@@ -1,17 +1,48 @@
 import Trip from '../models/trip.js'
-import Review from '../models/reviewBlog.js'
 
+import UserTrip from '../models/usertrips.js'
 
 
 import redis from 'redis'
 
 
 
-
-
-const getTrip = async(req, res) => {
+const allTrips = async(req, res) => {
   try {
-    const trip = await Trip.find({});
+
+
+    const trip = await Trip.find();
+
+    console.log(trip);
+
+    if(trip)
+    {
+    res.status(200).json(trip);
+
+    }
+  } catch (e) {
+      res.status(500).json(e.message)
+  }
+
+}
+
+
+
+
+
+
+const getUserTrips = async(req, res) => {
+  try {
+
+    const loggedInuser = req.user
+
+    console.log(loggedInuser.user._id);
+
+
+    const trip = await UserTrip.find({userId : loggedInuser.user._id});
+
+    console.log(trip);
+
     if(trip)
     {
     res.status(200).json(trip);
@@ -68,7 +99,9 @@ console.log(ui.user._id);
 var io = await client.get(JSON.stringify(ui.user._id));
 console.log(io);
 
-if(io !== null)
+console.log(JSON.parse(io)._id);
+
+if(io !== null && JSON.parse(io)._id === req.params.id)
 {
   console.log("JKKKK");
 console.log(io);
@@ -76,12 +109,17 @@ console.log(io);
 
 
 var uj = JSON.parse(io);
+
+console.log(uj);
+
+console.log(io + "kl");
 // console.log(JSON.parse(uj).activities);
 
 
 
 
-console.log(uj.activities);
+// console.log(uj.activities);
+
 
 
 
@@ -91,6 +129,8 @@ console.log(uj.activities);
 
    }];
 
+
+console.log(uj.activities.length);
 
 
 
@@ -116,12 +156,17 @@ else {
 
         }];
 
+        console.log(data.length);
+
 
 
         trip.activities = data;
 
 
     // save the record in the cache for subsequent request
+
+    console.log(trip);
+    console.log(ui.user._id);
     await client.set(JSON.stringify(ui.user._id), JSON.stringify(trip)).catch(e => console.log(e));
 
     // return the result to the client
@@ -151,6 +196,7 @@ catch(e)
 
 try {
 
+
   const client = redis.createClient();
 
   (async() => {
@@ -160,10 +206,73 @@ try {
 
 const ui = req.user;
 
+
   var io = await client.get(JSON.stringify(ui.user._id));
 
-  const user = User.findById(ui.user._id);
-  
+var uj = JSON.parse(io);
+console.log(uj);
+
+
+const usertrip = await UserTrip.find({tripid : req.body.tripId});
+console.log(usertrip);
+
+console.log(uj._id , req.body.tripId);
+if(usertrip.length === 0 && uj._id === req.body.tripId)
+{
+
+
+
+const usertrip1 = new UserTrip({
+  trip_name: uj.trip_name ,
+  itinerary: uj.itinerary ,
+  activities: uj.activities ,
+  Route: uj.Route,
+  tripid: uj._id,
+  userId: ui.user._id
+
+})
+
+usertrip1.save()
+
+console.log("saved");
+
+res.json("done")
+
+}
+else  if(req.body.tripId === uj._id ){
+
+
+
+
+const yu = await UserTrip.find({tripid : req.body.tripId})
+console.log(yu);
+
+
+
+console.log(yu[0].activities.length);
+console.log(uj.activities.length);
+  yu[0].activities = uj.activities;
+  console.log(yu[0].activities.length);
+
+  await  yu[0].save().catch(e => console.log(e));
+
+
+
+
+
+res.json("hi");
+
+
+}
+else {
+  res.json("Please customize the itinerary first")
+}
+console.log(uj.trip_name , uj.itinerary , uj.activities , uj.Route);
+console.log(req.user);
+
+
+
+
 
 
 
@@ -180,9 +289,9 @@ const ui = req.user;
 
 
 
-const deleteTrip  =  async(req, res) => {
+const deleteUserTrip  =  async(req, res) => {
   try {
-    const trip = await Trip.findById(req.params.id);
+    const trip = await UserTrip.findById(req.params.id);
     console.log(trip);
 
     if(trip)
@@ -258,98 +367,34 @@ res.status(401).json(e.message)
 
 
 
-const updateTrip  = async(req, res) => {
+const updateUserTrip  = async(req, res) => {
 
-const {title , body  } = req.body
+const { data  } = req.body
 
-const trip = await Trip.findById(req.params.id)
+// console.log(data);
+var trip = await UserTrip.find({_id: req.params.id});
+
 
 if(trip)
 {
-  trip.title = title,
-  trip.body = body
+  trip[0].trip_name = data.trip_name;
+  trip[0].Route = data.Route;
+  trip[0].itinerary = data.itinerary;
+  trip[0].activities = data.activities;
+
+
+  console.log(trip[0]);
+const jk =   await trip[0].save();
+
+res.json(jk);
+
 }
 else {
   res.status(404)
   res.json("Error : no product of this id")
 }
 
-  const updatedTrip = await trip.save()
-  res.status(201)
-  res.json(updatedTrip);
-}
 
-
-
-
-const createReview  = async(req, res) => {
- const {  user : loggedInuser} = req.user;
-
-  try {
-    console.log(loggedInuser);
-
-    const review =  new Review({
-      userId: loggedInuser._id,
-      description :req.body.description,
-
-    })
-
-    const createdReview = await review.save()
-
-    res.status(201).json(createdReview)
-
-  } catch (e) {
-
-res.status(401).json(e.message)
-  }
-
-
-}
-
-
-
-const deleteReview  =  async(req, res) => {
-  try {
-    const review = await Review.findById(req.params.id);
-    console.log(review);
-
-    if(review)
-    {
-      await review.remove()
-    res.json({message : 'Review Removed'})
-  }
-  else {
-    res.status(404);
-    res.json("Not Found")
-
-  }
-
-  } catch (e) {
-    res.status(500).json(e.message)
-
-  }
-
-
-}
-
-const allTheReviews  =  async(req, res) => {
-  try {
-
-console.log("Jo");
-    const reviews = await Review.find({}).populate("userId")
-    console.log(reviews);
-
-    if(reviews)
-    {
-    res.status(200).json(reviews)
-  }
-
-
-  } catch (e) {
-    console.log(e);
-
-
-  }
 
 
 }
@@ -358,4 +403,10 @@ console.log("Jo");
 
 
 
-export {getTrip , getTripById , deleteTrip , updateTrip , createTrip , createReview , deleteReview , allTheReviews , searchTrip , customizeInt}
+
+
+
+
+
+
+export {allTrips , getUserTrips , getTripById , deleteUserTrip , updateUserTrip , createTrip , searchTrip , customizeInt , saveInt}

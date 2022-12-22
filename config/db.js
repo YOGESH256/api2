@@ -1,20 +1,36 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+const DB_URI = 'mongodb://localhost:27017/trip';
+  import  {Mockgoose } from 'mockgoose';
 
-import dotenv from 'dotenv'
 
-dotenv.config()
+function connect() {
+  return new Promise((resolve, reject) => {
 
-const ConnectDB = async () => {
-  try {
-    
-    const  conn = await mongoose.connect(process.env.MONGO_URI)
+    if (process.env.NODE_ENV === 'test') {
 
-    console.log(`MongoDB Connected ${conn.connection.host}`);
-  } catch (e) {
-    console.log(`Error : ${e.message}`);
-    process.exit(1);
+    let mockgoose = new Mockgoose(mongoose);
 
-  }
+
+      mockgoose.prepareStorage()
+        .then(() => {
+          mongoose.connect(DB_URI)
+            .then((res, err) => {
+              if (err) return reject(err);
+              resolve();
+            })
+        })
+    } else {
+        mongoose.connect(DB_URI)
+          .then((res, err) => {
+            if (err) return reject(err);
+            resolve('connected');
+          })
+    }
+  });
 }
 
-export default ConnectDB;
+function close() {
+  return mongoose.disconnect();
+}
+
+export  default { connect, close };

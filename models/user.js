@@ -15,17 +15,11 @@ const userSchema = new mongoose.Schema({
     max:50,
     unique: true
 
-  },
-
-  usertrips: {
-
-   trips : [{type:mongoose.Schema.Types.ObjectId,
-   required:true,
-   ref:'Trip'
- }]
-
-
   }
+
+
+
+  
 
 
 
