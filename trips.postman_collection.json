@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "c6b4d5dc-7b00-4511-832b-5052b9e9b560",
+		"name": "trips",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "see all trips",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoieW9nZXNoa2hhdHJpMjU2NUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsIl9pZCI6IjYzOWQ5MDA1NGUzZjIxYWI1N2NkNGUyNyIsImNyZWF0ZWRBdCI6IjIwMjItMTItMTdUMDk6NDY6NDUuOTA0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTItMTdUMDk6NDY6NDUuOTA0WiIsIl9fdiI6MH0sImlhdCI6MTY3MTI3MDQwNX0.hWaQJ-1c-fYurpwjCmyOBPMqE7gggIxXa_yaEvHti00",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/trip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"trip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "see saved iternary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/blogs/63810562ebef13f3fa2006c5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"blogs",
+						"63810562ebef13f3fa2006c5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user trip",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoieW9nZXNoa2hhdHJpMjU2NUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsIl9pZCI6IjYzODA5ODI4ZjIyOTMzNzBiNDU0MmIyZCIsImNyZWF0ZWRBdCI6IjIwMjItMTEtMjVUMTA6MjU6NDQuMzU5WiIsInVwZGF0ZWRBdCI6IjIwMjItMTEtMjVUMTA6MjU6NDQuMzU5WiIsIl9fdiI6MH0sImlhdCI6MTY2OTM3MTk0NH0.dUFDo5qDEbvdWctiBIx3FD1ymnYpW9Y2Iut1jdeNYiM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Pain in the mind\",\r\n    \"body\": \"Great deal of stress\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/products/6380a2027751f281888f1f74",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"products",
+						"6380a2027751f281888f1f74"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Trip",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoieW9nZXNoa2hhdHJpMjU2NUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsIl9pZCI6IjYzODA5ODI4ZjIyOTMzNzBiNDU0MmIyZCIsImNyZWF0ZWRBdCI6IjIwMjItMTEtMjVUMTA6MjU6NDQuMzU5WiIsInVwZGF0ZWRBdCI6IjIwMjItMTEtMjVUMTA6MjU6NDQuMzU5WiIsIl9fdiI6MH0sImlhdCI6MTY2OTM3MTk0NH0.dUFDo5qDEbvdWctiBIx3FD1ymnYpW9Y2Iut1jdeNYiM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/blogs/63810562ebef13f3fa2006c5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"blogs",
+						"63810562ebef13f3fa2006c5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"yogeshkhatri2565@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "custom",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "searchAPI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoieW9nZXNoa2hhdHJpMjU2NUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsIl9pZCI6IjYzOWQ5MDA1NGUzZjIxYWI1N2NkNGUyNyIsImNyZWF0ZWRBdCI6IjIwMjItMTItMTdUMDk6NDY6NDUuOTA0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTItMTdUMDk6NDY6NDUuOTA0WiIsIl9fdiI6MH0sImlhdCI6MTY3MTI3MDQwNX0.hWaQJ-1c-fYurpwjCmyOBPMqE7gggIxXa_yaEvHti00",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\" : \"Auckland\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/trip/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"trip",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveInt",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/trip/saveInt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"trip",
+						"saveInt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create New trip",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
